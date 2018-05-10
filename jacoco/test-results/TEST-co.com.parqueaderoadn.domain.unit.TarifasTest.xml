@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co.com.parqueaderoadn.domain.unit.TarifasTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-05-09T20:13:40" hostname="YEISON-GOMEZ" time="0.008">
+  <properties/>
+  <testcase name="cobroCarroTest1" classname="co.com.parqueaderoadn.domain.unit.TarifasTest" time="0.006"/>
+  <testcase name="cobroMotoTest1" classname="co.com.parqueaderoadn.domain.unit.TarifasTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

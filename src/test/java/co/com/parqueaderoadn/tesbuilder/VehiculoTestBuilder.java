@@ -1,6 +1,6 @@
 package co.com.parqueaderoadn.tesbuilder;
 
-import co.com.parqueaderoadn.domain.Vehiculo;
+import co.com.parqueaderoadn.dominio.Vehiculo;
 
 public class VehiculoTestBuilder {
 	

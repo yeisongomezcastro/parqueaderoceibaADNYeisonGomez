@@ -1,4 +1,4 @@
-package co.com.parqueaderoadn.domain;
+package co.com.parqueaderoadn.dominio;
 
 public class Vehiculo {
 	private String tipoVehiculo;
