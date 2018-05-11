@@ -6,27 +6,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "Vehiculo")
-public class VehiculoEntidad {
+@Entity(name = "Tarifa")
+public class TarifaEntidad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	
 	@Column(nullable = false)
 	private String tipoVehiculo;
 	
-	@Column(nullable = true)
-	private String cilindraje;
+	@Column(nullable = false)
+	private double valorHora;
 	
 	@Column(nullable = false)
-	private String placa;
-	
+	private double valorDia;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -38,22 +37,19 @@ public class VehiculoEntidad {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 
-	public String getCilindraje() {
-		return cilindraje;
+	public double getValorHora() {
+		return valorHora;
 	}
 
-	public void setCilindraje(String cilindraje) {
-		this.cilindraje = cilindraje;
+	public void setValorHora(double valorHora) {
+		this.valorHora = valorHora;
 	}
 
-	public String getPlaca() {
-		return placa;
+	public double getValorDia() {
+		return valorDia;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public void setValorDia(double valorDia) {
+		this.valorDia = valorDia;
 	}
-	
-	
-
 }

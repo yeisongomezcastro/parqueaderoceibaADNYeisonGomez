@@ -1,4 +1,4 @@
-package co.com.parqueaderoadn.enumerador;
+package co.com.parqueaderoadn.mensajes;
 
 public class Mensajes {
 	private Mensajes(){}
