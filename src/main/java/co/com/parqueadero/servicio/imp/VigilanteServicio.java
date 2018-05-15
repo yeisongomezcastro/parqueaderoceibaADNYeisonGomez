@@ -38,9 +38,13 @@ public class VigilanteServicio implements IVigilanteServicio {
 			if (!parqueadero.getVehiculo().esCarro() || !parqueadero.getVehiculo().esMoto()) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
 			} 
+			
+			if(!vigilante.validarCeldasDisponibles()) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
+			}
 			vigilanteRepositorio.save(parqueaderoEntidad);
 		} catch (ParqueaderoExcepcion excepcion) {
-		
+			
 		}
 		
 	}
