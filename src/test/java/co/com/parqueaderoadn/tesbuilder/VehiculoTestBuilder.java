@@ -1,17 +1,15 @@
 package co.com.parqueaderoadn.tesbuilder;
 
-import co.com.parqueaderoadn.dominio.Vehiculo;
+import co.com.parqueadero.dominio.Vehiculo;
 
 public class VehiculoTestBuilder {
-	private Integer id;
 	private String tipoVehiculo;
-	private String cilindraje;
+	private Integer cilindraje;
 	private String placa;
 	
 	public VehiculoTestBuilder() {
-		this.id=1;
 		this.tipoVehiculo = "moto";
-		this.cilindraje = "150cc";
+		this.cilindraje = 150;
 		this.placa = "QKV15E";
 	}
 	
@@ -20,7 +18,7 @@ public class VehiculoTestBuilder {
 		return this;
 	}
 	
-	public VehiculoTestBuilder conCilindraje(String cilindraje) {
+	public VehiculoTestBuilder conCilindraje(Integer cilindraje) {
 		this.cilindraje=cilindraje;
 		return this;
 	}
@@ -32,7 +30,7 @@ public class VehiculoTestBuilder {
 	
 	
 	public Vehiculo build() {
-		return new Vehiculo(this.id,this.tipoVehiculo,this.cilindraje,this.placa);
+		return new Vehiculo(this.placa,this.cilindraje,this.tipoVehiculo);
 	}
 
 }

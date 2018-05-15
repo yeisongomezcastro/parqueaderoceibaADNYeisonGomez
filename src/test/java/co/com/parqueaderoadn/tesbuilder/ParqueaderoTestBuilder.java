@@ -2,8 +2,8 @@ package co.com.parqueaderoadn.tesbuilder;
 
 import java.time.LocalDateTime;
 
-import co.com.parqueaderoadn.dominio.Parqueadero;
-import co.com.parqueaderoadn.dominio.Vehiculo;
+import co.com.parqueadero.dominio.Parqueadero;
+import co.com.parqueadero.dominio.Vehiculo;
 
 public class ParqueaderoTestBuilder {
 	private Vehiculo vehiculo;
