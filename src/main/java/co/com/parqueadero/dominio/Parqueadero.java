@@ -1,13 +1,13 @@
 package co.com.parqueadero.dominio;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Parqueadero {
 	private Vehiculo vehiculo;
-	private LocalDateTime fechaIngreso;
-	private LocalDateTime fechaSalida;
+	private Date fechaIngreso;
+	private Date fechaSalida;
 
-	public Parqueadero(Vehiculo vehiculo, LocalDateTime fechaIngreso, LocalDateTime fechaSalida) {
+	public Parqueadero(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
 		super();
 		this.vehiculo = vehiculo;
 		this.fechaIngreso = fechaIngreso;
@@ -18,11 +18,11 @@ public class Parqueadero {
 		return vehiculo;
 	}
 
-	public LocalDateTime getFechaIngreso() {
+	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public LocalDateTime getFechaSalida() {
+	public Date getFechaSalida() {
 		return fechaSalida;
 	}
 

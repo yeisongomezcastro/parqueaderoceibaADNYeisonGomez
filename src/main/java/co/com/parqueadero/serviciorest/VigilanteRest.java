@@ -1,6 +1,6 @@
 package co.com.parqueadero.serviciorest;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +32,8 @@ public class VigilanteRest {
 	@RequestMapping(method=RequestMethod.POST,value = "/guardar")
 	public void save(@RequestBody VehiculoEntidad vehiculoEntidad) {
 		ParqueaderoEntidad parqueaderoEntidad;
-		parqueaderoEntidad = new ParqueaderoEntidad(vehiculoEntidad,LocalDateTime.now(),LocalDateTime.now());
+		Calendar calendar = Calendar.getInstance();
+		parqueaderoEntidad = new ParqueaderoEntidad(vehiculoEntidad,calendar.getTime(),null);
 		vigilanteServicio.save(parqueaderoEntidad);
 	}
 	

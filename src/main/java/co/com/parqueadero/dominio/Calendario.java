@@ -1,19 +1,19 @@
 package co.com.parqueadero.dominio;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
+
 
 public class Calendario {
 	static final int NRO_DIA_DOMINGO_RESTRINGIDO = 1;
 	static final int NRO_DIA_LUNES_RESTRINGIDO = 2;
+	Calendar  calendar;
 	
-	private LocalDateTime fechaIngreso;
-
 	public Calendario() {
-		this.fechaIngreso = LocalDateTime.now();
+		this.calendar = Calendar.getInstance();
 	}
 
 	public boolean esDiaHabilParaPlacaQueIniciaPorA() {
-		return this.fechaIngreso.getDayOfWeek().getValue() > 2 ? true : false;
+		return calendar.get(Calendar.DAY_OF_WEEK)  > 2;
 	}
 
 }

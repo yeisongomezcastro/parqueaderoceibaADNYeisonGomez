@@ -1,5 +1,7 @@
 package co.com.parqueadero.dominio;
 
+
+
 public class Vehiculo {
 	private static final String CARRO = "carro";
 	private static final String MOTO = "moto";
@@ -7,6 +9,10 @@ public class Vehiculo {
 	private Integer cilindraje;
 	private String tipoVehiculo;
 
+	
+	public Vehiculo() {
+		
+	}
 	public Vehiculo(String placa, Integer cilindraje, String tipoVehiculo) {
 		super();
 		this.placa = placa;

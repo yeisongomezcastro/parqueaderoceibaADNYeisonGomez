@@ -1,14 +1,14 @@
 package co.com.parqueaderoadn.tesbuilder;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import co.com.parqueadero.dominio.Parqueadero;
 import co.com.parqueadero.dominio.Vehiculo;
 
 public class ParqueaderoTestBuilder {
 	private Vehiculo vehiculo;
-	private LocalDateTime fechaIngreso;
-	private LocalDateTime fechaSalida;
+	private Date fechaIngreso;
+	private Date fechaSalida;
 
 	
 	public ParqueaderoTestBuilder conVehiculo(Vehiculo vehiculo) {
@@ -16,12 +16,12 @@ public class ParqueaderoTestBuilder {
 		return this;
 	}
 	
-	public ParqueaderoTestBuilder conFechaIngreso(LocalDateTime fechaIngreso) {
+	public ParqueaderoTestBuilder conFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso=fechaIngreso;
 		return this;
 	}
 	
-	public ParqueaderoTestBuilder conFechaSalida(LocalDateTime fechaSalida) {
+	public ParqueaderoTestBuilder conFechaSalida(Date fechaSalida) {
 		this.fechaSalida=fechaSalida;
 		return this;
 	}

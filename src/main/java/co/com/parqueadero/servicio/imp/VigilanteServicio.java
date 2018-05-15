@@ -1,6 +1,5 @@
 package co.com.parqueadero.servicio.imp;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import co.com.parqueadero.builder.ParqueaderoBuilder;
 import co.com.parqueadero.dominio.Calendario;
 import co.com.parqueadero.dominio.Parqueadero;
+import co.com.parqueadero.dominio.Reloj;
 import co.com.parqueadero.dominio.Vigilante;
 import co.com.parqueadero.entidad.ParqueaderoEntidad;
 import co.com.parqueadero.excepcion.ParqueaderoExcepcion;
@@ -34,17 +34,21 @@ public class VigilanteServicio implements IVigilanteServicio {
 	public void save(ParqueaderoEntidad parqueaderoEntidad) {
 		try {
 			Parqueadero parqueadero = ParqueaderoBuilder.ensamblarDominio(parqueaderoEntidad);
-			vigilante = new Vigilante(new Calendario(), parqueadero);
-			if (!parqueadero.getVehiculo().esCarro() || !parqueadero.getVehiculo().esMoto()) {
+			Reloj reloj = new Reloj(parqueadero.getFechaIngreso(), parqueadero.getFechaSalida());
+			vigilante = new Vigilante(new Calendario(), parqueadero,reloj);
+			if (!parqueadero.getVehiculo().esCarro() && !parqueadero.getVehiculo().esMoto()) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
 			} 
 			
-			if(!vigilante.validarCeldasDisponibles()) {
-				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
+			if (!vigilante.validarCeldasDisponibles()) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_PARQUEADERO_SIN_CELDAS_DISPONIBLES);
+			}
+			if(vigilante.validarIngreso()) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_NO_AUTORIZADO_POR_RESTRICCIONES_DEL_PARQUEADERO);
 			}
 			vigilanteRepositorio.save(parqueaderoEntidad);
 		} catch (ParqueaderoExcepcion excepcion) {
-			
+			System.err.println(excepcion.getMessage());
 		}
 		
 	}

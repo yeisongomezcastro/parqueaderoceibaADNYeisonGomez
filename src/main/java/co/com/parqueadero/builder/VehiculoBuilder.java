@@ -9,7 +9,7 @@ public class VehiculoBuilder {
 	public static Vehiculo ensamblarDominio(VehiculoEntidad vehiculoEntity) {
 		Vehiculo vehiculo = null;
 		if (vehiculoEntity!=null) {
-			vehiculo = new Vehiculo(vehiculoEntity.getTipoVehiculo(), vehiculoEntity.getCilindraje(), vehiculoEntity.getPlaca());
+			vehiculo = new Vehiculo(vehiculoEntity.getPlaca(), vehiculoEntity.getCilindraje(), vehiculoEntity.getTipoVehiculo());
 		}
 		return vehiculo;
 	}
