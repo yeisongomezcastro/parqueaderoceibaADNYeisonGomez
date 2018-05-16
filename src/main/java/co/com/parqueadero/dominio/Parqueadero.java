@@ -1,30 +1,25 @@
 package co.com.parqueadero.dominio;
 
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Parqueadero {
 	private Vehiculo vehiculo;
-	private Date fechaIngreso;
-	private Date fechaSalida;
 
-	public Parqueadero(Vehiculo vehiculo, Date fechaIngreso, Date fechaSalida) {
+
+	public Parqueadero() {	
+	}
+	@Autowired
+	public Parqueadero(Vehiculo vehiculo) {
 		super();
 		this.vehiculo = vehiculo;
-		this.fechaIngreso = fechaIngreso;
-		this.fechaSalida = fechaSalida;
 	}
-
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
-
-	public Date getFechaIngreso() {
-		return fechaIngreso;
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
 	}
-
-	public Date getFechaSalida() {
-		return fechaSalida;
-	}
-
 
 }

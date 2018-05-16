@@ -1,7 +1,8 @@
 package co.com.parqueadero.dominio;
 
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class Vehiculo {
 	private static final String CARRO = "carro";
 	private static final String MOTO = "moto";
@@ -10,8 +11,7 @@ public class Vehiculo {
 	private String tipoVehiculo;
 
 	
-	public Vehiculo() {
-		
+	public Vehiculo() {	
 	}
 	public Vehiculo(String placa, Integer cilindraje, String tipoVehiculo) {
 		super();
@@ -23,15 +23,21 @@ public class Vehiculo {
 	public String getPlaca() {
 		return placa;
 	}
-
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
 	public Integer getCilindraje() {
 		return cilindraje;
 	}
-
+	public void setCilindraje(Integer cilindraje) {
+		this.cilindraje = cilindraje;
+	}
 	public String getTipoVehiculo() {
 		return tipoVehiculo;
 	}
-	
+	public void setTipoVehiculo(String tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
 	public String inicialPlaca() {
 		return this.getPlaca().substring(0,1);
 	}
