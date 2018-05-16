@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class Reloj {
 	private static final Integer MILI_SEGUNDOS = 1000 * 60 * 60;
-	public Reloj(){}
-
-	public Integer cantidadDiasHoras(Date fechaIngreso,Calendar calendar) {
-		Date fechaSalida = calendar.getTime();
+	public Integer cantidadHoras(Date fechaIngreso) {
+		Date fechaSalida = Calendar.getInstance().getTime();
 		return (int) ((fechaSalida.getTime() - fechaIngreso.getTime()) / MILI_SEGUNDOS);
 
 	}

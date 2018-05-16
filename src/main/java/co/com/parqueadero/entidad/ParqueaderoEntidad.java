@@ -10,21 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "Parqueadero")
 public class ParqueaderoEntidad  implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@OneToOne(cascade = CascadeType.ALL,targetEntity=VehiculoEntidad.class)
+	@ManyToOne(cascade = CascadeType.ALL,targetEntity=VehiculoEntidad.class)
 	@JoinColumn(name = "ID_VEHICULO", referencedColumnName = "placa")
 	private VehiculoEntidad vehiculoEntidad;
 

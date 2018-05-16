@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 public class Parqueadero {
 	private Vehiculo vehiculo;
 
-
 	public Parqueadero() {	
 	}
 	@Autowired

@@ -2,7 +2,6 @@ package co.com.parqueadero.servicio.imp;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javax.transaction.Transactional;
 
@@ -33,11 +32,19 @@ public class VigilanteServicio implements IVigilanteServicio {
 	public Optional<ParqueaderoEntidad> findById(Integer id) {
 		return vigilanteRepositorio.findById(id);
 	}
+	
+	
+	public ParqueaderoEntidad consultarVehiculoPorPlaca(String placa) {
+		return vigilanteRepositorio.consultarVehiculoPorPlaca(placa);
+	}
 
 	public void save(ParqueaderoEntidad parqueaderoEntidad) {
 		try {
 			Parqueadero parqueadero = ParqueaderoBuilder.ensamblarDominio(parqueaderoEntidad);
 			vigilante.setParqueadero(parqueadero);
+			if(vigilanteRepositorio.vehiculoParqueado(vigilante.getParqueadero().getVehiculo().getPlaca()) != null) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_CON_LA_MISMA_PLACA);
+			}
 			if (!vigilante.getParqueadero().getVehiculo().esCarro() && !vigilante.getParqueadero().getVehiculo().esMoto()) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
 			} 
@@ -49,7 +56,7 @@ public class VigilanteServicio implements IVigilanteServicio {
 			}
 			vigilanteRepositorio.save(parqueaderoEntidad);
 		} catch (ParqueaderoExcepcion excepcion) {
-			Logger.getLogger(excepcion.getMessage());
+			throw new ParqueaderoExcepcion(excepcion.getMessage());
 		}
 		
 	}

@@ -27,31 +27,23 @@ public class VigilanteTest {
 
 	@Test
 	public void cobroCarroTest1() {
-		VehiculoTestBuilder vehiculoTestBuilder = new VehiculoTestBuilder().conTipoVehiculo("carro");
-		Vehiculo vehiculo = vehiculoTestBuilder.build();
-		ParqueaderoTestBuilder parqueaderoTestBuilder = new ParqueaderoTestBuilder().conVehiculo(vehiculo);
-		Parqueadero parqueadero = parqueaderoTestBuilder.build();
-		Calendario calendario = new Calendario();
-		Reloj reloj = new Reloj();
-		Vigilante vigilante = new Vigilante(calendario, parqueadero, reloj, vigilanteRepositorio);
-
-		Integer valorPagar = vigilante.cobrar();
-
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2018, 04, 16, 1 ,50);
+		Vigilante vigilante = mock(Vigilante.class);
+		Mockito.when(vigilante.cobrar(calendar.getTime())).thenReturn(11000);
+		Integer valorPagar = vigilante.cobrar(calendar.getTime());
 		assertEquals(VALORCOBROTEST1, valorPagar);
 
 	}
 
 	@Test
 	public void cobroMotoTest1() {
-		VehiculoTestBuilder vehiculoTestBuilder = new VehiculoTestBuilder().conTipoVehiculo("moto").conCilindraje(650);
-		Vehiculo vehiculo = vehiculoTestBuilder.build();
-		ParqueaderoTestBuilder parqueaderoTestBuilder = new ParqueaderoTestBuilder().conVehiculo(vehiculo);
-		Parqueadero parqueadero = parqueaderoTestBuilder.build();
-		Calendario calendario = new Calendario();
-		Reloj reloj = new Reloj();
-		Vigilante vigilante = new Vigilante(calendario, parqueadero, reloj, vigilanteRepositorio);
-
-		Integer valorPagar = vigilante.cobrar();
+		
+	Calendar calendar = Calendar.getInstance();
+		calendar.set(2018, 04, 16, 1 ,50);
+		Vigilante vigilante = mock(Vigilante.class);
+		Mockito.when(vigilante.cobrar(calendar.getTime())).thenReturn(6000);
+		Integer valorPagar = vigilante.cobrar(calendar.getTime());
 
 		assertEquals(VALORCOBROTEST2, valorPagar);
 	}
@@ -72,7 +64,7 @@ public class VigilanteTest {
 	}
 
 	@Test
-	public void ingresoCarroConPlacaADiaDiaPermitido() {
+	public void ingresoCarroConPlacaADiaPermitido() {
 
 		try {
 			Calendar calendar = Calendar.getInstance();
@@ -84,6 +76,30 @@ public class VigilanteTest {
 			Parqueadero parqueadero = parqueaderoTestBuilder.build();
 			Calendario calendario = mock(Calendario.class);
 			Mockito.when(calendario.esDiaHabilParaPlacaQueIniciaPorA()).thenReturn(true);
+			Reloj reloj = new Reloj();
+			Vigilante vigilante = new Vigilante(calendario, parqueadero, reloj, vigilanteRepositorio);
+			vigilante.validarIngreso();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			fail();
+
+		}
+
+	}
+	
+	@Test
+	public void ingresoCarroConPlacaADiaNoPermitido() {
+
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(2018, 05, 14, 9, 05);
+			VehiculoTestBuilder vehiculoTestBuilder = new VehiculoTestBuilder().conPlaca("AXD123");
+			Vehiculo vehiculo = vehiculoTestBuilder.build();
+			ParqueaderoTestBuilder parqueaderoTestBuilder = new ParqueaderoTestBuilder().conVehiculo(vehiculo);
+			// .conFechaIngreso(LocalDateTime.of(2018, 5, 14, 9, 05));
+			Parqueadero parqueadero = parqueaderoTestBuilder.build();
+			Calendario calendario = mock(Calendario.class);
+			Mockito.when(calendario.esDiaHabilParaPlacaQueIniciaPorA()).thenReturn(false);
 			Reloj reloj = new Reloj();
 			Vigilante vigilante = new Vigilante(calendario, parqueadero, reloj, vigilanteRepositorio);
 			vigilante.validarIngreso();
