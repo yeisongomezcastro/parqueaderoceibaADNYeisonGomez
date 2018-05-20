@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -38,13 +39,11 @@ public class VigilanteTest {
 
 	@Test
 	public void cobroMotoTest1() {
-		
-	Calendar calendar = Calendar.getInstance();
-		calendar.set(2018, 04, 16, 1 ,50);
-		Vigilante vigilante = mock(Vigilante.class);
-		Mockito.when(vigilante.cobrar(calendar.getTime())).thenReturn(6000);
-		Integer valorPagar = vigilante.cobrar(calendar.getTime());
-
+		Calendar calendar = Calendar.getInstance();
+		Date fechaIngreso =calendar.getTime();
+		Vigilante vigi = mock(Vigilante.class);
+		Mockito.when(vigi.cobrar(fechaIngreso)).thenReturn(6000);
+ 		Integer valorPagar = vigi.cobrar(fechaIngreso);
 		assertEquals(VALORCOBROTEST2, valorPagar);
 	}
 

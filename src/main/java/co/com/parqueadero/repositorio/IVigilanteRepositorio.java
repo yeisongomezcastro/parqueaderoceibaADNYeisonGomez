@@ -18,5 +18,5 @@ public interface IVigilanteRepositorio extends JpaRepository<ParqueaderoEntidad,
 	
 	@Query("From Parqueadero P where P.vehiculoEntidad.placa = :placa")
 	ParqueaderoEntidad consultarVehiculoPorPlaca(@Param("placa") String placa);
-
+	
 }

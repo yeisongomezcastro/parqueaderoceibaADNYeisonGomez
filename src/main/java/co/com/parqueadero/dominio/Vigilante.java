@@ -113,11 +113,11 @@ public class Vigilante {
 		Integer cantidaVehiculos = 0;
 		estadoParqueadero = vigilanteRepositorio.findAll();
 		for (ParqueaderoEntidad parqueaderoEntidad : estadoParqueadero) {
-			if (tipoVehiculo.equals(parqueaderoEntidad.getVehiculoEntidad().getTipoVehiculo())) {
+			if (tipoVehiculo.equalsIgnoreCase(parqueaderoEntidad.getVehiculoEntidad().getTipoVehiculo())) {
 				cantidaVehiculos++;
 			}
 		}
-		cantidaMaximaVehiculoPermitidoSegunTipo = "moto".equals(tipoVehiculo) ? CANTIDAD_MAXIMA_MOTOS_PERMITIDOS
+		cantidaMaximaVehiculoPermitidoSegunTipo = "moto".equalsIgnoreCase(tipoVehiculo) ? CANTIDAD_MAXIMA_MOTOS_PERMITIDOS
 				: CANTIDAD_MAXIMA_CARROS_PERMITIDOS;
 		return cantidaVehiculos >= cantidaMaximaVehiculoPermitidoSegunTipo;
 	}
