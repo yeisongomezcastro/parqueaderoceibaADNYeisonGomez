@@ -1,6 +1,6 @@
 package co.com.parqueaderoadn.tesbuilder;
 
-import co.com.parqueadero.dominio.Vehiculo;
+import co.com.parqueadero.model.Vehiculo;
 
 public class VehiculoTestBuilder {
 	private String tipoVehiculo;
