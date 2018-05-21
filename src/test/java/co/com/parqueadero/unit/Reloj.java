@@ -1,4 +1,4 @@
-package co.com.parqueaderoadn.domain.unit;
+package co.com.parqueadero.unit;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

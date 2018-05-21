@@ -33,13 +33,13 @@ public class OperadorParqueaderoRest {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value = "/guardar")
-	public ResponseEntity<String> save(@RequestBody Vehiculo vehiculo) {
+	public ResponseEntity<?> save(@RequestBody Vehiculo vehiculo) {
 		try {
 			vigilanteServicio.save(vehiculo);
 			} catch (ParqueaderoExcepcion  e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 			}
-			return new ResponseEntity<>("Se realizo el ingreso del vehiculo",HttpStatus.OK);
+			return new ResponseEntity<>(vehiculo,HttpStatus.OK);
 		
 		
 	}
