@@ -12,6 +12,9 @@ public class TarifasEntidad {
 	private String id;
 	
 	@Column(nullable = false)
+	private Integer tarifa;
+	
+	@Column(nullable = false)
 	private String tipoTarifa;
 	
 	@Column(nullable = true)
@@ -26,8 +29,9 @@ public class TarifasEntidad {
 	@Column(nullable = true)
 	private Integer recargo;
 
-	public TarifasEntidad(String tipoTarifa, Integer valorHora, Integer valorDia, Integer valorMes, Integer recargo) {
+	public TarifasEntidad(Integer tarifa,String tipoTarifa, Integer valorHora, Integer valorDia, Integer valorMes, Integer recargo) {
 		super();
+		this.tarifa = tarifa;
 		this.tipoTarifa = tipoTarifa;
 		this.valorHora = valorHora;
 		this.valorDia = valorDia;
@@ -38,6 +42,10 @@ public class TarifasEntidad {
 	public TarifasEntidad() {
 	}
 
+	public Integer getTarifa() {
+		return tarifa;
+	}
+	
 	public String getTipoTarifa() {
 		return tipoTarifa;
 	}

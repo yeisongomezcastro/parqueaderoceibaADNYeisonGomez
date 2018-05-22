@@ -21,7 +21,7 @@ import co.com.parqueadero.servicio.IOperadorServicio;
 @Service
 @Transactional
 public class OperadorServicio implements IOperadorServicio {
-	
+
 	@Autowired
 	@Qualifier("IOperadorRespositorio")
 	IOperadorRespositorio vigilanteRepositorio;
@@ -37,11 +37,12 @@ public class OperadorServicio implements IOperadorServicio {
 			Calendar calendar = Calendar.getInstance();
 			MovimientoParqueaderoEntidad mvtoParEnt;
 			mvtoParEnt = operadorDAO.consultarPorPlaca(placa);
-			if(mvtoParEnt==null) {
+			if (mvtoParEnt == null) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_NO_SE_ENCUENTRA_EL_VEHICULO_BUSCADO);
 			}
 			mvtoParEnt.setFechaSalida(calendar.getTime());
-			mvtoParEnt.setValorPago(operador.cobrar(mvtoParEnt.getFechaIngreso(), mvtoParEnt.getTipoVehiculo(),mvtoParEnt.getCilindraje()));
+			mvtoParEnt.setValorPago(operador.cobrar(mvtoParEnt.getFechaIngreso(), mvtoParEnt.getTipoVehiculo(),
+					mvtoParEnt.getCilindraje()));
 			return mvtoParEnt;
 		} catch (ParqueaderoExcepcion excepcion) {
 			throw new ParqueaderoExcepcion(excepcion.getMessage());
@@ -50,36 +51,44 @@ public class OperadorServicio implements IOperadorServicio {
 
 	public void save(Vehiculo vehiculo) {
 		try {
-			if(vigilanteRepositorio.vehiculoParqueado(vehiculo.getPlaca()) != null) {
+			if (vigilanteRepositorio.vehiculoParqueado(vehiculo.getPlaca()) != null) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_CON_LA_MISMA_PLACA);
 			}
 			if (!vehiculo.esCarro(vehiculo.getTipoVehiculo()) && !vehiculo.esMoto(vehiculo.getTipoVehiculo())) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO);
-			} 
+			}
 			if (operador.validarCeldasDisponibles(vehiculo.getTipoVehiculo())) {
 				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_PARQUEADERO_SIN_CELDAS_DISPONIBLES);
 			}
-			if(operador.validarIngreso(vehiculo.getPlaca())) {
-				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_INGRESO_NO_AUTORIZADO_POR_RESTRICCIONES_DEL_PARQUEADERO);
+			if (operador.validarIngreso(vehiculo.getPlaca())) {
+				throw new ParqueaderoExcepcion(
+						Mensajes.MENSAJE_INGRESO_NO_AUTORIZADO_POR_RESTRICCIONES_DEL_PARQUEADERO);
 			}
 			operadorDAO.guardar(vehiculo);
 		} catch (ParqueaderoExcepcion excepcion) {
 			throw new ParqueaderoExcepcion(excepcion.getMessage());
 		}
-		
+
 	}
 
 	@Override
 	public void actualizar(MovimientoParqueaderoEntidad parqueaderoEntidad) {
 		vigilanteRepositorio.save(parqueaderoEntidad);
-		
+
 	}
 
 	@Override
 	public List<MovimientoParqueaderoEntidad> listar() {
-		return operadorDAO.listar();
+		List<MovimientoParqueaderoEntidad> movimientoParqueadero;
+		try {
+			movimientoParqueadero = operadorDAO.listar();
+			if (movimientoParqueadero.isEmpty()) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_PARQUEADERO_SIN_VEHICULOS);
+			}
+			return movimientoParqueadero;
+		} catch (ParqueaderoExcepcion excepcion) {
+			throw new ParqueaderoExcepcion(excepcion.getMessage());
+		}
 	}
-
-	 
 
 }

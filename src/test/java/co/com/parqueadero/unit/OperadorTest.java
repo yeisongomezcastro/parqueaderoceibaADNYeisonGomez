@@ -57,7 +57,7 @@ public class OperadorTest {
 		Reloj reloj = mock(Reloj.class);
 		IOperadorDAO operadorDAO = new OperadorDAOImp();
 		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
-		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(10);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(600);
 
 		// act
 		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
@@ -75,7 +75,7 @@ public class OperadorTest {
 		Reloj reloj = mock(Reloj.class);
 		IOperadorDAO operadorDAO = new OperadorDAOImp();
 		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
-		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(27);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(1620);
 
 		// act
 		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
@@ -93,7 +93,7 @@ public class OperadorTest {
 		Reloj reloj = mock(Reloj.class);
 		IOperadorDAO operadorDAO = new OperadorDAOImp();
 		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
-		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(32);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(1920);
 
 		// act
 		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
@@ -111,7 +111,7 @@ public class OperadorTest {
 		Reloj reloj = mock(Reloj.class);
 		IOperadorDAO operadorDAO = new OperadorDAOImp();
 		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
-		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(50);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(3000);
 
 		// act
 		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());

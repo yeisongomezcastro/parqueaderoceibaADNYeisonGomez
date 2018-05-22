@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import co.com.parqueadero.entidad.TarifasEntidad;
 
+
 @Repository("ITarifasRepositorio")
 public interface ITarifasRepositorio extends JpaRepository<TarifasEntidad, Serializable> {
 

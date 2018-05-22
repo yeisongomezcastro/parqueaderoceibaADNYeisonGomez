@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import co.com.parqueadero.entidad.EstadoParqueaderoEntidad;
 
+
 @Repository("IEstadoParqueaderoEntidad")
 public interface IEstadoParqueaderoEntidad extends JpaRepository<EstadoParqueaderoEntidad, Serializable> {
 

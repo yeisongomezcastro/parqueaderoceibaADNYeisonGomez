@@ -59,18 +59,23 @@ public class Operador implements IOperador {
 	}
 
 	public Integer obtenerValorPago(Date fechaIngreso, Integer valorHora, Integer valorDia) {
-		Integer valorHorasServicio;
+		Integer valorMinutosServicio;
 		Integer numeroDias;
 		Integer numeroHoras;
+		Integer numeroMinutos;
 		Integer valorAPagar = 0;
-		valorHorasServicio = reloj.cantidadHoras(fechaIngreso);
-		numeroDias = valorHorasServicio / 24;
-		numeroHoras = valorHorasServicio % 24;
+		valorMinutosServicio = reloj.cantidadMinutos(fechaIngreso);
+		numeroDias = (valorMinutosServicio / 60) / 24;
+		numeroHoras = (valorMinutosServicio / 60) % 24;
+		numeroMinutos = valorMinutosServicio % 60;
 		if (numeroHoras > 9) {
 			numeroDias++;
 			numeroHoras = 0;
 		}
-		valorAPagar += (numeroDias * valorDia) + ((numeroHoras + MINIMA_HORA) * valorHora);
+		if(numeroMinutos>0) {
+			numeroHoras++;
+		}
+		valorAPagar += (numeroDias * valorDia) + (numeroHoras  * valorHora);
 		return valorAPagar;
 	}
 
@@ -99,7 +104,7 @@ public class Operador implements IOperador {
 		estadoParqueadero = operadorDAO.listar();
 	
 		for (MovimientoParqueaderoEntidad movimientoParqueaderoEntidad : estadoParqueadero) {
-			if (tipoVehiculo.equalsIgnoreCase(movimientoParqueaderoEntidad.getTipoVehiculo())) {
+			if (tipoVehiculo.equalsIgnoreCase(movimientoParqueaderoEntidad.getTipoVehiculo()) && movimientoParqueaderoEntidad.getValorPago()==null) {
 				cantidaVehiculos++;
 			}
 		}

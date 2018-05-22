@@ -20,10 +20,10 @@ public class Reloj {
 		//Arrange
 		Calendar calendar = Calendar.getInstance();
 		IReloj reloj = mock(IReloj.class);
-		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(VALOR_ESPERADO_HORAS);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(VALOR_ESPERADO_HORAS);
 		
 		//Act
-		Integer horas = reloj.cantidadHoras(calendar.getTime());
+		Integer horas = reloj.cantidadMinutos(calendar.getTime());
 		
 		//Assert 
 		
