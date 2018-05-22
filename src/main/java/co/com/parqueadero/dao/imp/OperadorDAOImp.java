@@ -27,7 +27,7 @@ public class OperadorDAOImp implements IOperadorDAO {
 
 	@Override
 	public List<MovimientoParqueaderoEntidad> listar() {
-		return operadorRespositorio.findAll();
+		return operadorRespositorio.listar();
 	}
 
 	

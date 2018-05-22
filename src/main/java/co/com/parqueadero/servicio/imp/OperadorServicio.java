@@ -1,5 +1,6 @@
 package co.com.parqueadero.servicio.imp;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,7 +33,19 @@ public class OperadorServicio implements IOperadorServicio {
 	IOperadorDAO operadorDAO;
 
 	public MovimientoParqueaderoEntidad consultarVehiculoPorPlaca(String placa) {
-		return vigilanteRepositorio.consultarVehiculoPorPlaca(placa);
+		try {
+			Calendar calendar = Calendar.getInstance();
+			MovimientoParqueaderoEntidad mvtoParEnt;
+			mvtoParEnt = operadorDAO.consultarPorPlaca(placa);
+			if(mvtoParEnt==null) {
+				throw new ParqueaderoExcepcion(Mensajes.MENSAJE_NO_SE_ENCUENTRA_EL_VEHICULO_BUSCADO);
+			}
+			mvtoParEnt.setFechaSalida(calendar.getTime());
+			mvtoParEnt.setValorPago(operador.cobrar(mvtoParEnt.getFechaIngreso(), mvtoParEnt.getTipoVehiculo(),mvtoParEnt.getCilindraje()));
+			return mvtoParEnt;
+		} catch (ParqueaderoExcepcion excepcion) {
+			throw new ParqueaderoExcepcion(excepcion.getMessage());
+		}
 	}
 
 	public void save(Vehiculo vehiculo) {
@@ -53,12 +66,6 @@ public class OperadorServicio implements IOperadorServicio {
 		} catch (ParqueaderoExcepcion excepcion) {
 			throw new ParqueaderoExcepcion(excepcion.getMessage());
 		}
-		
-	}
-
-	@Override
-	public void borrar(MovimientoParqueaderoEntidad parqueaderoEntidad) {
-		vigilanteRepositorio.delete(parqueaderoEntidad);
 		
 	}
 

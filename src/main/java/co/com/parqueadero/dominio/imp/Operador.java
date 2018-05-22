@@ -20,6 +20,7 @@ public class Operador implements IOperador {
 	private static final int VALOR_HORA_CARRO = 1000;
 	private static final int VALOR_DIA_MOTO = 4000;
 	private static final int VALOR_HORA_MOTO = 500;
+	private static final int MINIMA_HORA = 0;
 	private static final int CILINDRAJE_QUE_PAGA_RECARGO = 500;
 	private static final int VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_150CC = 2000;
 	private static final int CANTIDAD_MAXIMA_CARROS_PERMITIDOS = 20;
@@ -43,11 +44,11 @@ public class Operador implements IOperador {
 	}
 
 
-	public Integer cobrar(Date fechaIngreso,String tipoVehiculo) {
+	public Integer cobrar(Date fechaIngreso,String tipoVehiculo,Integer cilindraje) {
 		Integer valorAPagar = 0;
 		if (this.vehiculo.esMoto(tipoVehiculo)) {
 			valorAPagar = obtenerValorPago(fechaIngreso, VALOR_HORA_MOTO, VALOR_DIA_MOTO);
-			valorAPagar += this.vehiculo.getCilindraje() > CILINDRAJE_QUE_PAGA_RECARGO
+			valorAPagar += cilindraje > CILINDRAJE_QUE_PAGA_RECARGO
 					? VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_150CC
 					: 0;
 		}
@@ -69,7 +70,7 @@ public class Operador implements IOperador {
 			numeroDias++;
 			numeroHoras = 0;
 		}
-		valorAPagar += (numeroDias * valorDia) + (numeroHoras * valorHora);
+		valorAPagar += (numeroDias * valorDia) + ((numeroHoras + MINIMA_HORA) * valorHora);
 		return valorAPagar;
 	}
 

@@ -70,5 +70,15 @@ public class MovimientoParqueaderoEntidad implements Serializable {
 	public Integer getValorPago() {
 		return valorPago;
 	}
+	
+	public MovimientoParqueaderoEntidad setFechaSalida(Date fechaSalida) {
+		this.fechaSalida=fechaSalida;
+		return this;
+	}
+	
+	public MovimientoParqueaderoEntidad setValorPago(Integer valorPago) {
+		this.valorPago=valorPago;
+		return this;
+	}
 
 }

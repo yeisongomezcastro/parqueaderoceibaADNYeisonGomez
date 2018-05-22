@@ -39,10 +39,10 @@ public class OperadorTest {
 		Calendar calendar = Calendar.getInstance();
 		Operador operador = mock(Operador.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_MOTO).build();
-		Mockito.when(operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo())).thenReturn(6000);
+		Mockito.when(operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje())).thenReturn(6000);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo());
+		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_MOTO_TEST1_TEST2, valorPagar);
@@ -60,7 +60,7 @@ public class OperadorTest {
 		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(10);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo());
+		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_MOTO_TEST1_TEST2, valorPagar);
@@ -78,7 +78,7 @@ public class OperadorTest {
 		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(27);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo());
+		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST1, valorPagar);
@@ -96,7 +96,7 @@ public class OperadorTest {
 		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(32);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo());
+		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST2, valorPagar);
@@ -114,7 +114,7 @@ public class OperadorTest {
 		Mockito.when(reloj.cantidadHoras(calendar.getTime())).thenReturn(50);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo());
+		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST3, valorPagar);

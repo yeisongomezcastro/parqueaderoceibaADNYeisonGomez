@@ -1,4 +1,5 @@
 package co.com.parqueadero.serviciorest;
+
 import java.util.List;
 
 import javax.ws.rs.Produces;
@@ -28,26 +29,38 @@ public class OperadorParqueaderoRest {
 	
 
 	@RequestMapping("/buscarvehiculo/{placa}")
-	public MovimientoParqueaderoEntidad buscarPorPlaca(@PathVariable("placa") String placa) {
-		return vigilanteServicio.consultarVehiculoPorPlaca(placa);
+	public ResponseEntity<Object> buscarPorPlaca(@PathVariable("placa") String placa) {
+		MovimientoParqueaderoEntidad movimientoParqueaderoEntidad;
+		try {
+			movimientoParqueaderoEntidad = vigilanteServicio.consultarVehiculoPorPlaca(placa);
+		} catch (ParqueaderoExcepcion e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<>(movimientoParqueaderoEntidad, HttpStatus.OK);
+
 	}
-	
-	@RequestMapping(method=RequestMethod.POST,value = "/guardar")
-	public ResponseEntity<?> save(@RequestBody Vehiculo vehiculo) {
+
+	@RequestMapping(method = RequestMethod.POST, value = "/guardar")
+	public ResponseEntity<Object> save(@RequestBody Vehiculo vehiculo) {
 		try {
 			vigilanteServicio.save(vehiculo);
-			} catch (ParqueaderoExcepcion  e) {
+		} catch (ParqueaderoExcepcion e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
-			}
-			return new ResponseEntity<>(vehiculo,HttpStatus.OK);
-		
-		
+		}
+		return new ResponseEntity<>(vehiculo, HttpStatus.OK);
+
 	}
-	
+
 	@Produces(MediaType.APPLICATION_JSON)
-	@RequestMapping(method=RequestMethod.GET,value = "/listar")
-	public List<MovimientoParqueaderoEntidad> listar() {
-		return vigilanteServicio.listar();
+	@RequestMapping(method = RequestMethod.GET, value = "/listar")
+	public ResponseEntity<Object> listar() {
+		List<MovimientoParqueaderoEntidad> movimientoParqueadero;
+		try {
+			movimientoParqueadero = vigilanteServicio.listar();
+		} catch (ParqueaderoExcepcion e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<>(movimientoParqueadero, HttpStatus.OK);
 	}
 
 }

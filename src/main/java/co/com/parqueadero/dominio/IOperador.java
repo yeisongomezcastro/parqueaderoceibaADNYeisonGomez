@@ -4,7 +4,7 @@ import java.util.Date;
 
 public interface IOperador {
 
-	public Integer cobrar(Date fechaIngreso,String tipoVehiculo);
+	public Integer cobrar(Date fechaIngreso,String tipoVehiculo,Integer cilindraje);
 
 	public Integer obtenerValorPago(Date fechaIngreso, Integer valorHora, Integer valorDia);
 
