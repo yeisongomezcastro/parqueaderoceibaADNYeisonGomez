@@ -37,7 +37,7 @@ public class OperadorServices {
 	@Test
 	public void registrarIngreso() {
 	Vehiculo vehiculo = new VehiculoTestBuilder().conPlaca(PLACA).conCilindraje(CILINDRAJE).conTipoVehiculo(TIPO_VEHICULO_MOTO).build();
-	ResponseEntity<MovimientoParqueaderoEntidad> movimientoParqueaderoEntidad = restTemplate.postForEntity("http://localhost:"+localServerPort+"/servicio/guardar", vehiculo,MovimientoParqueaderoEntidad.class);
+	ResponseEntity<MovimientoParqueaderoEntidad> movimientoParqueaderoEntidad = restTemplate.postForEntity("http://localhost:"+localServerPort+"/servicio/registraringresovehiculo", vehiculo,MovimientoParqueaderoEntidad.class);
 	System.out.println("Puerto: " + localServerPort);
 	assertEquals(HttpStatus.OK, movimientoParqueaderoEntidad.getStatusCode());
 	}
@@ -45,7 +45,7 @@ public class OperadorServices {
 	@Test
 	public void registrarIngresoFallido() {
 			Vehiculo vehiculo = new VehiculoTestBuilder().conPlaca(PLACA).conCilindraje(CILINDRAJE).conTipoVehiculo(TIPO_VEHICULO_AVION).build();
-			ResponseEntity<String> movimientoParqueaderoEntidad = restTemplate.postForEntity("http://localhost:"+localServerPort+"/servicio/guardar", vehiculo,String.class);
+			ResponseEntity<String> movimientoParqueaderoEntidad = restTemplate.postForEntity("http://localhost:"+localServerPort+"/servicio/registraringresovehiculo", vehiculo,String.class);
 			System.out.println("Puerto: " + localServerPort);
 			assertEquals(Mensajes.MENSAJE_INGRESO_VEHICULO_DIFERENTE_A_CARRO_O_MOTO,movimientoParqueaderoEntidad.getBody());
 
@@ -53,7 +53,7 @@ public class OperadorServices {
 	
 	@Test
 	public void listarVehiculos() {
-	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/listar",String.class);
+	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/consultarvehiculosparqueados",String.class);
 	System.out.println("Puerto: " + localServerPort);
 	assertEquals(HttpStatus.NOT_ACCEPTABLE, responseEntity.getStatusCode());
 	}
@@ -61,7 +61,7 @@ public class OperadorServices {
 	@Test
 	public void consultarPorPlacaNoExistente() {
 	Vehiculo vehiculo = new VehiculoTestBuilder().conPlaca(PLACA).conCilindraje(CILINDRAJE).conTipoVehiculo(TIPO_VEHICULO_MOTO).build();
-	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/buscarvehiculo/" + vehiculo.getPlaca(),String.class);
+	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/registrarsalidavehiculo/" + vehiculo.getPlaca(),String.class);
 	System.out.println("Puerto: " + localServerPort);
 	assertEquals(HttpStatus.NOT_ACCEPTABLE, responseEntity.getStatusCode());
 	}
@@ -69,7 +69,7 @@ public class OperadorServices {
 	@Test
 	public void consultarPorPlacaExistente() {
 	Vehiculo vehiculo = new VehiculoTestBuilder().conPlaca(PLACA).conCilindraje(CILINDRAJE).conTipoVehiculo(TIPO_VEHICULO_MOTO).build();
-	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/buscarvehiculo/" + vehiculo.getPlaca(),String.class);
+	ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://localhost:"+localServerPort+"/servicio/registrarsalidavehiculo/" + vehiculo.getPlaca(),String.class);
 	System.out.println("Puerto: " + localServerPort);
 	assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 	}

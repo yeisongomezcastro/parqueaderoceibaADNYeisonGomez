@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import co.com.parqueadero.dao.IOperadorDAO;
+import co.com.parqueadero.dao.IVigilanteDAO;
 import co.com.parqueadero.dominio.ICalendario;
-import co.com.parqueadero.dominio.IOperador;
+import co.com.parqueadero.dominio.IVigilante;
 import co.com.parqueadero.dominio.IReloj;
 import co.com.parqueadero.entidad.MovimientoParqueaderoEntidad;
 import co.com.parqueadero.model.Vehiculo;
 
 @Component
-public class Operador implements IOperador {
+public class Vigilante implements IVigilante {
 	private static final String TIPO_VEHICULO = "moto";
 	private static final int VALOR_DIA_CARRO = 8000;
 	private static final int VALOR_HORA_CARRO = 1000;
@@ -27,20 +27,20 @@ public class Operador implements IOperador {
 	private static final int CANTIDAD_MAXIMA_MOTOS_PERMITIDOS = 10;
 
 	@Qualifier
-	private IOperadorDAO operadorDAO;
+	private IVigilanteDAO vigilanteDAO;
 	private ICalendario calendario;
 	private Vehiculo vehiculo;
 	private IReloj reloj;
 
 	@Autowired
-	public Operador(ICalendario calendario, Vehiculo vehiculo, IReloj reloj,
-			IOperadorDAO operadorDAO) {
+	public Vigilante(ICalendario calendario, Vehiculo vehiculo, IReloj reloj,
+			IVigilanteDAO vigilanteDAO) {
 		this.calendario = calendario;
 		this.vehiculo = vehiculo;
 		this.reloj = reloj;
-		this.operadorDAO = operadorDAO;
+		this.vigilanteDAO = vigilanteDAO;
 	}
-	public Operador() {
+	public Vigilante() {
 	}
 
 
@@ -101,7 +101,7 @@ public class Operador implements IOperador {
 		Integer cantidaMaximaVehiculoPermitidoSegunTipo;
 		List<MovimientoParqueaderoEntidad> estadoParqueadero;
 		Integer cantidaVehiculos = 0;
-		estadoParqueadero = operadorDAO.listar();
+		estadoParqueadero = vigilanteDAO.consultarVehiculosParqueados();
 	
 		for (MovimientoParqueaderoEntidad movimientoParqueaderoEntidad : estadoParqueadero) {
 			if (tipoVehiculo.equalsIgnoreCase(movimientoParqueaderoEntidad.getTipoVehiculo()) && movimientoParqueaderoEntidad.getValorPago()==null) {

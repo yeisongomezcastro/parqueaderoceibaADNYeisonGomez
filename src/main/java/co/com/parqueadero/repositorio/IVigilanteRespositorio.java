@@ -13,7 +13,7 @@ import co.com.parqueadero.entidad.MovimientoParqueaderoEntidad;
 
 
 @Repository("IOperadorRespositorio")
-public interface IOperadorRespositorio extends JpaRepository<MovimientoParqueaderoEntidad, Serializable> {
+public interface IVigilanteRespositorio extends JpaRepository<MovimientoParqueaderoEntidad, Serializable> {
 	
 	@Query("From Movimiento_Parqueadero P where P.placa = :placa And P.valorPago Is Null")
 	MovimientoParqueaderoEntidad vehiculoParqueado(@Param("placa") String placa);
@@ -22,6 +22,6 @@ public interface IOperadorRespositorio extends JpaRepository<MovimientoParqueade
 	MovimientoParqueaderoEntidad consultarVehiculoPorPlaca(@Param("placa") String placa);
 	
 	@Query("From Movimiento_Parqueadero P where P.valorPago is null")
-	List<MovimientoParqueaderoEntidad> listar();
+	List<MovimientoParqueaderoEntidad> consultarVehiculosParqueados();
 	
 }

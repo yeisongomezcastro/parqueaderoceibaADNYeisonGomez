@@ -18,21 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.parqueadero.entidad.MovimientoParqueaderoEntidad;
 import co.com.parqueadero.excepcion.ParqueaderoExcepcion;
 import co.com.parqueadero.model.Vehiculo;
-import co.com.parqueadero.servicio.imp.OperadorServicio;
+import co.com.parqueadero.servicio.imp.VigilanteServicio;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/servicio")
 public class OperadorParqueaderoRest {
 	@Autowired
-	OperadorServicio vigilanteServicio;
+	VigilanteServicio vigilanteServicio;
 	
 
-	@RequestMapping("/buscarvehiculo/{placa}")
-	public ResponseEntity<Object> buscarPorPlaca(@PathVariable("placa") String placa) {
+	@RequestMapping("/registrarsalidavehiculo/{placa}")
+	public ResponseEntity<Object> registraSalidaVehiculo(@PathVariable("placa") String placa) {
 		MovimientoParqueaderoEntidad movimientoParqueaderoEntidad;
 		try {
-			movimientoParqueaderoEntidad = vigilanteServicio.consultarVehiculoPorPlaca(placa);
+			movimientoParqueaderoEntidad = vigilanteServicio.registraSalidaVehiculo(placa);
 		} catch (ParqueaderoExcepcion e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 		}
@@ -40,10 +40,10 @@ public class OperadorParqueaderoRest {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/guardar")
-	public ResponseEntity<Object> save(@RequestBody Vehiculo vehiculo) {
+	@RequestMapping(method = RequestMethod.POST, value = "/registraringresovehiculo")
+	public ResponseEntity<Object> registraringresarVehiculoParqueadero(@RequestBody Vehiculo vehiculo) {
 		try {
-			vigilanteServicio.save(vehiculo);
+			vigilanteServicio.registraringresoVehiculoParqueadero(vehiculo);
 		} catch (ParqueaderoExcepcion e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 		}
@@ -52,11 +52,11 @@ public class OperadorParqueaderoRest {
 	}
 
 	@Produces(MediaType.APPLICATION_JSON)
-	@RequestMapping(method = RequestMethod.GET, value = "/listar")
-	public ResponseEntity<Object> listar() {
+	@RequestMapping(method = RequestMethod.GET, value = "/consultarvehiculosparqueados")
+	public ResponseEntity<Object> consultarVehiculosParqueados() {
 		List<MovimientoParqueaderoEntidad> movimientoParqueadero;
 		try {
-			movimientoParqueadero = vigilanteServicio.listar();
+			movimientoParqueadero = vigilanteServicio.consultarVehiculosParqueados();
 		} catch (ParqueaderoExcepcion e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
 		}

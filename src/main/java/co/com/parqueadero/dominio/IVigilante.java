@@ -2,7 +2,7 @@ package co.com.parqueadero.dominio;
 
 import java.util.Date;
 
-public interface IOperador {
+public interface IVigilante {
 
 	public Integer cobrar(Date fechaIngreso,String tipoVehiculo,Integer cilindraje);
 

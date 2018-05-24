@@ -11,38 +11,39 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import co.com.parqueadero.dao.IOperadorDAO;
-import co.com.parqueadero.dao.imp.OperadorDAOImp;
+import co.com.parqueadero.dao.IVigilanteDAO;
+import co.com.parqueadero.dao.imp.VigilanteDAOImp;
 import co.com.parqueadero.dominio.ICalendario;
 import co.com.parqueadero.dominio.IReloj;
 import co.com.parqueadero.dominio.imp.Calendario;
-import co.com.parqueadero.dominio.imp.Operador;
+import co.com.parqueadero.dominio.imp.Vigilante;
 import co.com.parqueadero.dominio.imp.Reloj;
 import co.com.parqueadero.model.Vehiculo;
-import co.com.parqueadero.repositorio.IOperadorRespositorio;
+import co.com.parqueadero.repositorio.IVigilanteRespositorio;
 import co.com.parqueaderoadn.tesbuilder.VehiculoTestBuilder;
 
-public class OperadorTest {
+public class VigilanteTest {
 	private static final String VEHICULO_MOTO = "Moto";
 	private static final String VEHICULO_CARRO = "Carro";
 	public static final Integer VALOR_PAGO_CARRO_TEST1 = 11000;
 	public static final Integer VALOR_PAGO_MOTO_TEST1_TEST2 = 6000;
+	public static final Integer VALOR_PAGO_MOTO_TEST1_TEST3 = 6500;
 	public static final Integer VALOR_PAGO_CARRO_TEST2 = 16000;
 	public static final Integer VALOR_PAGO_CARRO_TEST3 = 18000;
 	
 	@Qualifier("IOperadorRespositorio")
-	IOperadorRespositorio operadorRespositorio;
+	IVigilanteRespositorio vigilanteRespositorio;
 
 	@Test
 	public void cobroMotoTest1() {
 		// arrange
 		Calendar calendar = Calendar.getInstance();
-		Operador operador = mock(Operador.class);
+		Vigilante vigilante = mock(Vigilante.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_MOTO).build();
-		Mockito.when(operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje())).thenReturn(6000);
+		Mockito.when(vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje())).thenReturn(6000);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_MOTO_TEST1_TEST2, valorPagar);
@@ -55,15 +56,33 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_MOTO).conPlaca("AXY123").conCilindraje(660).build();
 		Reloj reloj = mock(Reloj.class);
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(600);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_MOTO_TEST1_TEST2, valorPagar);
+	}
+	
+	@Test
+	public void cobroMotoTest3() {
+		// arrange
+		Calendar calendar = Calendar.getInstance();
+		ICalendario calendario = mock(Calendario.class);
+		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_MOTO).conPlaca("AXY123").conCilindraje(660).build();
+		Reloj reloj = mock(Reloj.class);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
+		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(601);
+
+		// act
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+
+		// assert
+		assertEquals(VALOR_PAGO_MOTO_TEST1_TEST3, valorPagar);
 	}
 	
 	@Test
@@ -73,12 +92,12 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).build();
 		Reloj reloj = mock(Reloj.class);
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(1620);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST1, valorPagar);
@@ -91,12 +110,12 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).build();
 		Reloj reloj = mock(Reloj.class);
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(1920);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST2, valorPagar);
@@ -109,12 +128,12 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).build();
 		Reloj reloj = mock(Reloj.class);
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 		Mockito.when(reloj.cantidadMinutos(calendar.getTime())).thenReturn(3000);
 
 		// act
-		Integer valorPagar = operador.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
+		Integer valorPagar = vigilante.cobrar(calendar.getTime(), vehiculo.getTipoVehiculo(),vehiculo.getCilindraje());
 
 		// assert
 		assertEquals(VALOR_PAGO_CARRO_TEST3, valorPagar);
@@ -124,12 +143,12 @@ public class OperadorTest {
 	@Test
 	public void ingresoCarroParqueaderoLleno() {
 		// arrange
-		Operador operador = mock(Operador.class);
+		Vigilante vigilante = mock(Vigilante.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).build();
-		Mockito.when(operador.validarCeldasDisponibles(vehiculo.getTipoVehiculo())).thenReturn(true);
+		Mockito.when(vigilante.validarCeldasDisponibles(vehiculo.getTipoVehiculo())).thenReturn(true);
 
 		// act
-		boolean validarCeldas = operador.validarCeldasDisponibles(vehiculo.getTipoVehiculo());
+		boolean validarCeldas = vigilante.validarCeldasDisponibles(vehiculo.getTipoVehiculo());
 
 		// assert
 		assertTrue(validarCeldas);
@@ -139,12 +158,12 @@ public class OperadorTest {
 	@Test
 	public void ingresoMotoParqueaderoLleno() {
 		// arrange
-		Operador operador = mock(Operador.class);
+		Vigilante vigilante = mock(Vigilante.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_MOTO).build();
-		Mockito.when(operador.validarCeldasDisponibles(vehiculo.getTipoVehiculo())).thenReturn(true);
+		Mockito.when(vigilante.validarCeldasDisponibles(vehiculo.getTipoVehiculo())).thenReturn(true);
 
 		// act
-		boolean validarCeldas = operador.validarCeldasDisponibles(vehiculo.getTipoVehiculo());
+		boolean validarCeldas = vigilante.validarCeldasDisponibles(vehiculo.getTipoVehiculo());
 
 		// assert
 		assertTrue(validarCeldas);
@@ -157,13 +176,13 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).conPlaca("AXY123").build();
 		IReloj reloj = new Reloj();
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 
 		Mockito.when(calendario.esDiaHabilParaPlacaQueIniciaPorA()).thenReturn(true);
 
 		// act
-		boolean ingresoParqueadero = operador.validarIngreso(vehiculo.getPlaca());
+		boolean ingresoParqueadero = vigilante.validarIngreso(vehiculo.getPlaca());
 
 		// assert
 		assertFalse(ingresoParqueadero);
@@ -178,13 +197,13 @@ public class OperadorTest {
 		ICalendario calendario = mock(Calendario.class);
 		Vehiculo vehiculo = new VehiculoTestBuilder().conTipoVehiculo(VEHICULO_CARRO).conPlaca("AXY123").build();
 		IReloj reloj = new Reloj();
-		IOperadorDAO operadorDAO = new OperadorDAOImp();
-		Operador operador = new Operador(calendario, vehiculo, reloj, operadorDAO);
+		IVigilanteDAO vigilanteDAO = new VigilanteDAOImp();
+		Vigilante vigilante = new Vigilante(calendario, vehiculo, reloj, vigilanteDAO);
 
 		Mockito.when(calendario.esDiaHabilParaPlacaQueIniciaPorA()).thenReturn(false);
 
 		// act
-		boolean ingresoParqueadero = operador.validarIngreso(vehiculo.getPlaca());
+		boolean ingresoParqueadero = vigilante.validarIngreso(vehiculo.getPlaca());
 
 		// assert
 		assertTrue(ingresoParqueadero);
