@@ -16,13 +16,13 @@ import co.com.parqueadero.model.Vehiculo;
 
 @Component
 public class Operador implements IOperador {
+	private static final String TIPO_VEHICULO = "moto";
 	private static final int VALOR_DIA_CARRO = 8000;
 	private static final int VALOR_HORA_CARRO = 1000;
 	private static final int VALOR_DIA_MOTO = 4000;
 	private static final int VALOR_HORA_MOTO = 500;
-	private static final int MINIMA_HORA = 0;
-	private static final int CILINDRAJE_QUE_PAGA_RECARGO = 500;
-	private static final int VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_150CC = 2000;
+	private static final int CILINDRAJE_MINIMO_QUE_PAGA_RECARGO = 500;
+	private static final int VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_500CC = 2000;
 	private static final int CANTIDAD_MAXIMA_CARROS_PERMITIDOS = 20;
 	private static final int CANTIDAD_MAXIMA_MOTOS_PERMITIDOS = 10;
 
@@ -48,8 +48,8 @@ public class Operador implements IOperador {
 		Integer valorAPagar = 0;
 		if (this.vehiculo.esMoto(tipoVehiculo)) {
 			valorAPagar = obtenerValorPago(fechaIngreso, VALOR_HORA_MOTO, VALOR_DIA_MOTO);
-			valorAPagar += cilindraje > CILINDRAJE_QUE_PAGA_RECARGO
-					? VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_150CC
+			valorAPagar += cilindraje > CILINDRAJE_MINIMO_QUE_PAGA_RECARGO
+					? VALOR_RECARGO_MOTO_CILINDRAJE_MAYOR_500CC
 					: 0;
 		}
 		if (this.vehiculo.esCarro(tipoVehiculo)) {
@@ -109,7 +109,7 @@ public class Operador implements IOperador {
 			}
 		}
 		
-		cantidaMaximaVehiculoPermitidoSegunTipo = "moto".equalsIgnoreCase(tipoVehiculo)
+		cantidaMaximaVehiculoPermitidoSegunTipo = TIPO_VEHICULO.equalsIgnoreCase(tipoVehiculo)
 				? CANTIDAD_MAXIMA_MOTOS_PERMITIDOS
 				: CANTIDAD_MAXIMA_CARROS_PERMITIDOS;
 		return cantidaVehiculos >= cantidaMaximaVehiculoPermitidoSegunTipo;
