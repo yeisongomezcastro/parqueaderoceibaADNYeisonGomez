@@ -19,26 +19,26 @@ public class EstadoParqueaderoEntidad {
 	@Column(nullable = true)
 	private Integer valor;
 
-	public EstadoParqueaderoEntidad() {
-	}
-
-	public EstadoParqueaderoEntidad(String tipoVehiculo, String descripcion, Integer valor) {
-		super();
-		this.tipoVehiculo = tipoVehiculo;
-		this.descripcion = descripcion;
-		this.valor = valor;
-	}
-
-	public String getTipoVehiculo() {
-		return tipoVehiculo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public Integer getValor() {
-		return valor;
-	}
-	
+//	public EstadoParqueaderoEntidad() {
+//	}
+//
+//	public EstadoParqueaderoEntidad(String tipoVehiculo, String descripcion, Integer valor) {
+//		super();
+//		this.tipoVehiculo = tipoVehiculo;
+//		this.descripcion = descripcion;
+//		this.valor = valor;
+//	}
+//
+//	public String getTipoVehiculo() {
+//		return tipoVehiculo;
+//	}
+//
+//	public String getDescripcion() {
+//		return descripcion;
+//	}
+//
+//	public Integer getValor() {
+//		return valor;
+//	}
+//	
 }
